@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import User from './User'
+import Swal from 'sweetalert2'
 import './App.css'
 
 //é importante notar que o useState é a forma de se manipular o estado por meio de componentes funcionais. respectivamente, a função retorna primeiro o estado inicial, e depois a função que o manipulará. vale também notar que o useEffect tem a possibilidade de copiar o estado inicial, tornando-o imutável. assim, desta forma, pode-se manipular o estado sem mais problemas futuros e forma mais fácil.
@@ -7,9 +8,21 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const user = {name: 'Juan', age: 26}
+  useEffect(() => {
+    Swal.fire({
+      title: 'Welcome!',
+      text: 'você está na página do Juan',
+      icon: 'success',
+      confirmButtonText: 'Cool!',
+    })
+  }, [])
+  const [mount] = useState(false);
   return (
     <>
+        <button disabled={mount ? <App /> : null}>App</button>
+        <button disabled={mount ? <User /> : null}>User</button>
       <h1>Contador com React Funcional</h1>
+        <p>aqui você encontrará hooks customizados e tradicionais.</p>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
