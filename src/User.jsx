@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import context from './context/context';
 
 function User({ user, age }) {
 
@@ -31,13 +32,20 @@ function User({ user, age }) {
 
   const [advice, setAdvice] = useState('')
 
+  const themeColor = useContext(context);
+
   return (
     <>
       <h1>Olá {user}</h1>
+      <button onClick={() => themeColor.toggleTheme()}>{
+      themeColor.color === 'dark' ? '☀️' : '🌓'
+      }</button>
+      <p>{themeColor.color}</p>
       <h1>Qual é sua idade?</h1>
       <h5>{age}</h5>
       <p>{advice}</p>
     </>
+
   );
 }
 
